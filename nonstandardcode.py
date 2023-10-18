@@ -76,6 +76,7 @@ housing.plot(kind="scatter", x="longitude", y="latitude")
 housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.1)
 
 housing["rooms_per_household"] = housing["total_rooms"] / housing["households"]
+
 housing["bedrooms_per_room"] = (
     housing["total_bedrooms"] / housing["total_rooms"]
 )

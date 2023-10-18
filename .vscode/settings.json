@@ -1,0 +1,16 @@
+{
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    },
+    "flake8.args": [
+        "--max-line-length=88"
+     ],
+    "isort.args":["--profile", "black"],
+    "python.defaultInterpreterPath": "/home/chandu8278/miniconda3/bin/python"
+    
+}
