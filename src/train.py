@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import StratifiedShuffleSplit, train_test_split
 
-from ingest_data import *
+from src import ingest_data
 
 
 def training_data(
@@ -24,7 +24,7 @@ def training_data(
 
     """
 
-    housing = get_data()
+    housing = ingest_data.get_data()
     split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
     for train_index, test_index in split.split(housing, housing["income_cat"]):
         strat_train_set = housing.loc[train_index]

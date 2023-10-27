@@ -23,6 +23,6 @@ requires-python = ">=3.11"
 Homepage = "https://github.com/chandra8278/mle-training"
  
 [project.scripts]
-ingest_data = "ingest_data"
-train_data = "train"
-score = "score"
+ingest_data = "ingest_data:main"
+train = "train:main"
+score = "score:main"
