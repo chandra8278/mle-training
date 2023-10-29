@@ -18,8 +18,8 @@ class TestHousingLibraryFunctional(unittest.TestCase):
         self.assertEqual(housing_data.shape, (20640, 10))
 
     def test_fetch_and_load_housing_data(self):
-        fetch_housing_data()
-        load_housing_data()
+        self.assertIsNotNone(fetch_housing_data())
+        self.assertIsNotNone(load_housing_data())
         # Perform test assertions to validate the fetched and loaded data
         pass
 

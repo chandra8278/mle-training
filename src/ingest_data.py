@@ -44,9 +44,13 @@ def fetch_housing_data():
 
     """
 
-    housing_tgz = tarfile.open("./housing.tgz")
-    housing_tgz.extractall(path="./")
+    housing_tgz = tarfile.open("housing.tgz", "r:gz")
+    for member in housing_tgz.getmembers():
+        f = housing_tgz.extractfile(member)
+        if f is not None:
+            content = f.read()
     housing_tgz.close()
+    return content
 
 
 def load_housing_data():
