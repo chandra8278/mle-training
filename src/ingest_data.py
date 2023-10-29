@@ -1,12 +1,7 @@
-import os
 import tarfile
 
 import numpy as np
 import pandas as pd
-
-DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml/master/"
-HOUSING_PATH = os.path.join(DOWNLOAD_ROOT, "datasets/housing")
-HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
 
 
 def get_data():
@@ -36,15 +31,12 @@ def get_data():
     return housing
 
 
-def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
-    """Fetches housing data from a given URL and extracts it to a specified path.
+def fetch_housing_data():
+    """Fetches housing data
 
     Parameters
     -----------
-    housing_url : str
-    URL of the housing data file.
-    housing_path : str
-    Path to save the housing data.
+    None
 
     Returns
     --------
@@ -52,16 +44,12 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
 
     """
 
-    if not os.path.isdir(housing_path):
-        os.makedirs(housing_path)
-    os.makedirs(housing_path, exist_ok=True)
-    tgz_path = os.path.join(housing_path, "housing.tgz")
-    housing_tgz = tarfile.open(tgz_path)
-    housing_tgz.extractall(path=housing_path)
+    housing_tgz = tarfile.open("./housing.tgz")
+    housing_tgz.extractall(path="./")
     housing_tgz.close()
 
 
-def load_housing_data(housing_path=HOUSING_PATH):
+def load_housing_data():
     """Loads housing data from CSV file.
 
     Parameters
@@ -77,5 +65,4 @@ def load_housing_data(housing_path=HOUSING_PATH):
 
     """
 
-    csv_path = os.path.join(housing_path, "housing.csv")
-    return pd.read_csv(csv_path)
+    return pd.read_csv("housing.csv")
