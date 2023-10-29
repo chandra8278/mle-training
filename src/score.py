@@ -4,7 +4,6 @@ import logging
 import logging.config
 import os
 
-import mlflow
 import numpy as np
 import pandas as pd
 from scipy.stats import randint
@@ -18,6 +17,7 @@ import train
 
 LOGGING_DEFAULT_CONFIG = {
     "version": 1,
+    "filename": "app.log",
     "disable_existing_loggers": False,
     "formatters": {
         "default": {
@@ -77,7 +77,7 @@ def configure_logger(
     return logger
 
 
-def score(experiment_id):
+def score():
     """Function to score the modules.
 
     Parameters
@@ -113,21 +113,18 @@ def score(experiment_id):
     else:
         config.read("setup.cfg")
     log_level = config.get("Logging", "log_level", fallback="INFO")
-    log_path = config.get("Logging", "log_path", fallback=None)
     console_log_not_enabled = config.getboolean(
         "Logging", "console_log_not_enabled", fallback=False
     )
 
     if args.log_level:
         log_level = args.log_level
-    if args.log_path:
-        log_path = args.log_path
     if args.no_console_log:
         console_log_not_enabled = True
 
     # configuring and assigning in the logger can be done by the below function
     logger = configure_logger(
-        log_file=log_path, console=console_log_not_enabled, log_level_var=log_level
+        log_file="./app.log", console=console_log_not_enabled, log_level_var=log_level
     )
     logger.warning(log_level)
     logger.info("Logging Test - Start")
@@ -188,14 +185,6 @@ def score(experiment_id):
         logger.info(" %s, %s", np.sqrt(-mean_score), params)
     for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
         print(np.sqrt(-mean_score), params)
-        with mlflow.start_run(
-            run_name="CHILD_RUN",
-            experiment_id=experiment_id,
-            nested=True,
-        ):
-            mlflow.log_metric("rmse", np.sqrt(-mean_score))
-            mlflow.log_metric("max_features", params["max_features"])
-            mlflow.log_metric("n_estimators", params["n_estimators"])
     param_grid = [
         # try 12 (3×4) combinations of hyperparameters
         {"n_estimators": [3, 10, 30], "max_features": [2, 4, 6, 8]},
@@ -253,3 +242,6 @@ def score(experiment_id):
     final_rmse = np.sqrt(final_mse)
     print(final_rmse)
     return
+
+
+score()

@@ -1,11 +1,12 @@
-import unittest
 import os
-from src import fetch_housing_data, load_housing_data
+import unittest
+
+from ingest_data import fetch_housing_data, load_housing_data
 
 
 class TestHousingLibraryFunctional(unittest.TestCase):
     def test_fetch_housing_data(self):
-        housing_path = 'datasets/housing'
+        housing_path = "datasets/housing"
         fetch_housing_data(housing_path)
 
         # Check if the housing.csv file exists
@@ -24,5 +25,5 @@ class TestHousingLibraryFunctional(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

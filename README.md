@@ -21,4 +21,3 @@ The following techniques have been used:
  >> pip install housing-library-5512==0.1
 2. In code file use these statements to import the required methods.
  >> from src import fetch_housing_data, load_housing_data
- >> 
