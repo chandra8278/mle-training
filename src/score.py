@@ -4,6 +4,7 @@ import logging
 import logging.config
 import os
 
+import mlflow
 import numpy as np
 import pandas as pd
 from scipy.stats import randint
@@ -14,6 +15,8 @@ from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.tree import DecisionTreeRegressor
 
 import train
+
+mlflow.autolog()
 
 LOGGING_DEFAULT_CONFIG = {
     "version": 1,
@@ -77,7 +80,7 @@ def configure_logger(
     return logger
 
 
-def score():
+def score(experiment_id):
     """Function to score the modules.
 
     Parameters
@@ -185,6 +188,14 @@ def score():
         logger.info(" %s, %s", np.sqrt(-mean_score), params)
     for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
         print(np.sqrt(-mean_score), params)
+        with mlflow.start_run(
+            run_name="CHILD_RUN",
+            experiment_id=experiment_id,
+            nested=True,
+        ):
+            mlflow.log_metric("rmse", np.sqrt(-mean_score))
+            mlflow.log_metric("max_features", params["max_features"])
+            mlflow.log_metric("n_estimators", params["n_estimators"])
     param_grid = [
         # try 12 (3×4) combinations of hyperparameters
         {"n_estimators": [3, 10, 30], "max_features": [2, 4, 6, 8]},
@@ -242,6 +253,3 @@ def score():
     final_rmse = np.sqrt(final_mse)
     print(final_rmse)
     return
-
-
-score()
