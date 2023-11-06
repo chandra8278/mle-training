@@ -16,5 +16,8 @@ The following techniques have been used:
  - Multiple sampling techinuqies are evaluated. The data set is split into train and test.
  - All the above said modelling techniques are tried and evaluated. The final metric used to evaluate is mean squared error.
 
-## To excute the script
-python < scriptname.py >
+## How to install the package and import the methods
+1. Install the package name = housing-library-5512==0.1 
+ >> pip install housing-library-5512==0.1
+2. In code file use these statements to import the required methods.
+ >> from src import fetch_housing_data, load_housing_data
