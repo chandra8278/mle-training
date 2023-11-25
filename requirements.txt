@@ -1,0 +1,9 @@
+beautifulsoup4
+black
+flake8
+matplotlib
+mlflow
+numpy
+pandas
+scikit-learn
+twine
