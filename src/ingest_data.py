@@ -69,4 +69,4 @@ def load_housing_data():
 
     """
 
-    return pd.read_csv("housing.csv")
+    return pd.read_csv("./datasets/housing/housing.csv")
